@@ -26,8 +26,10 @@ public class Password {
         return;
     }
 
-    System.out.println("Bitte wählen Sie die Länge ihres Passwortes!");
     int passwordLength = 0;
+    int minSpecialCharacters = 0;
+    int minNumbers = 0;
+    int minCharacters = 0;
 
     if(mode == "Normal") {
       while (passwordLength == 0 || passwordLength > 256) {
@@ -43,6 +45,12 @@ public class Password {
           while (passwordLength == 0 || passwordLength > 256) {
             System.out.println("Please enter the length of your password (not greater than 256):");
             passwordLength = standartInput.nextInt();
+            System.out.println("Please enter the minimum amount of special characters:");
+            minSpecialCharacters = standartInput.nextInt();
+            System.out.println("Please enter the minimum amount of numbers:");
+            minNumbers = standartInput.nextInt();
+            System.out.println("Please enter the minimum amount of normal characters:");
+            minCharacters = standartInput.nextInt();
           }
         } 
 
@@ -83,7 +91,31 @@ public class Password {
               countNumber++;
           }
         }
-      } while (countSpecial < passwordLength / 3 || countNumber < passwordLength / 4);
+      } while (countSpecial < passwordLength / 4 || countNumber < passwordLength / 8);
+    } else if(mode == "Custom") {
+      do {
+        countSpecial = 0;
+        countNumber = 0;
+        // create new password
+        for (int i = 0; i < passwordLength; i++) {
+          randomNumber = (int) (Math.random() * (symbolArray.length)); 
+          passwordArray[i] = symbolArray[randomNumber];
+        }
+        // count if circumstances match with mode "Secure"
+        for (int i = 0; i < passwordLength; i++) {
+          // vielleicht durch weitere for-Schleife ersetzen:
+          if (passwordArray[i] == "!" || passwordArray[i] == "$" || passwordArray[i] == "%" || passwordArray[i] == "&" || passwordArray[i] == "#" || passwordArray[i] == "?" || passwordArray[i] == "/" ||
+            passwordArray[i] == "-" || passwordArray[i] == "_" || passwordArray[i] == "*" || passwordArray[i] == "," || passwordArray[i] == ";" || passwordArray[i] == "+" ||
+            passwordArray[i] == "." || passwordArray[i] == "=" || passwordArray[i] == "~" || passwordArray[i] == "^" || passwordArray[i] == "(" || passwordArray[i] == ")" ||
+            passwordArray[i] == "{" || passwordArray[i] == "}" || passwordArray[i] == "[" || passwordArray[i] == "]" || passwordArray[i] == "|" || passwordArray[i] == ":") {
+              countSpecial++;
+          } 
+          if (passwordArray[i] == "0" || passwordArray[i] == "1" || passwordArray[i] == "2" || passwordArray[i] == "3" || passwordArray[i] == "4" || passwordArray[i] == "5" ||
+            passwordArray[i] == "6" || passwordArray[i] == "7" || passwordArray[i] == "8" || passwordArray[i] == "9") {
+              countNumber++;
+          }
+        }
+      } while (countSpecial < minSpecialCharacters || countNumber < minNumbers);
     } else {
         for (int i = 0; i < passwordLength; i++) {
           randomNumber = (int) (Math.random() * (symbolArray.length)); 
