@@ -4,6 +4,7 @@ public class Password {
 
 
   private static String[] secure() {
+    // used Arrays
     String[] symbols = {"!", "$", "%", "&", "#", "?", "-", "_", "*", ",", ";", "+", ".", "=", "~", "^", "(", ")", "{", "}", "[", "]", "|", ":", "/"};
     String[] numbers = {"0", "1" , "2" , "3" , "4" , "5", "6" , "7" , "8", "9"};
     String[] smallCharacters = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
@@ -19,6 +20,7 @@ public class Password {
     System.out.println("Secure-mode:");
     System.out.print("Please enter the length of your new password (8-256): ");
 
+    // conditions for mode "secure" are being checked
     do {
       passwordLength = input.nextInt();
       if (passwordLength < 8 || passwordLength > 256) {
@@ -58,6 +60,7 @@ public class Password {
 
 
   private static String[] custom() {
+    // used Arrays
     String[] symbols = {"!", "$", "%", "&", "#", "?", "-", "_", "*", ",", ";", "+", ".", "=", "~", "^", "(", ")", "{", "}", "[", "]", "|", ":", "/"};
     String[] numbers = {"0", "1" , "2" , "3" , "4" , "5", "6" , "7" , "8", "9"};
     String[] smallCharacters = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
@@ -74,7 +77,7 @@ public class Password {
     int amountCapitalCharacters;
     int random;
 
-    // Eingabeüberprüfung
+    // check if inputs are correct
 
     System.out.println("Custom-mode:");
 
@@ -175,9 +178,9 @@ public class Password {
     int mode = input.nextInt();
 
     if (mode == 2) {
-      // Wir bekommen das erstellte Passwort von der secure Methode überliefert
+      // sorted array containing password from method "secure" are being transmitted
       String[] newPassword = secure();
-      // Wir brauchen eine Logik, welche die Reihenfolge random gestaltet
+      // randomize order of array to create actual password
       String[] generatedPassword = new String[newPassword.length];
       for (int i = 0; i < generatedPassword.length; i++) {
         random = (int) (Math.random() * generatedPassword.length);  
@@ -189,7 +192,7 @@ public class Password {
         }     
       }
 
-      // Ausgabe des finalen Passwortes
+      // output final password
       System.out.println("New generated password:");
       for (String chars: generatedPassword) {
         System.out.print(chars);
